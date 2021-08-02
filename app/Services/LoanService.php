@@ -7,6 +7,10 @@ use App\Models\Transaction;
 
 class LoanService{
 
+    public function index($user){
+        return Loan::where('user_id', $user->id)->get();
+    }
+
     public function enquiry(){
         $response = [];
         $response['max_loan_amount'] = config('constants.max_loan_amount');
@@ -41,6 +45,7 @@ class LoanService{
 
     public function getLoanDetails($loan){
         $response = [];
+        $response['id'] = $loan->id;
         $response['interest_rate'] = $loan->interest_rate;
         $response['tenure'] = $loan->tenure;
         $response['amount'] = $loan->amount;

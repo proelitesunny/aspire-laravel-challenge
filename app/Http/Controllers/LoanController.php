@@ -7,6 +7,7 @@ use App\Http\Requests\Loan\LoanEnquiryRequest;
 use App\Http\Requests\Loan\LoanStoreRequest;
 use App\Http\Requests\Loan\LoanShowRequest;
 use App\Http\Requests\Loan\LoanPayRequest;
+use App\Http\Requests\Loan\LoanIndexRequest;
 use App\Services\LoanService;
 
 class LoanController extends Controller
@@ -15,6 +16,20 @@ class LoanController extends Controller
 
     public function __construct(LoanService $loan){
         $this->loan = $loan;
+    }
+
+    public function index(LoanIndexRequest $request){
+        try{
+            $user = $request->user();
+            return [
+                'message' => 'Success',
+                'loans' => $this->loan->index($user)
+            ];
+        }
+        catch(\Exception $e){
+            logger()->error($e->getMessage());
+            return response()->json(['message' => 'Some error occured'], 400);
+        }
     }
 
     public function enquiry(LoanEnquiryRequest $request){

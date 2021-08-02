@@ -23,6 +23,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::post('logout', [AuthController::class, 'logout'])->name('auth.logout');
 
     Route::get('loans/enquiry', [LoanController::class, 'enquiry'])->name('loans.enquiry');
+    Route::get('loans', [LoanController::class, 'index'])->name('loans.index');
     Route::post('loans', [LoanController::class, 'store'])->name('loans.store');
     Route::get('loans/{loan_id}', [LoanController::class, 'show'])->name('loans.show');
 
